@@ -1,0 +1,3 @@
+rootProject.name = 'slack'
+include 'messaging-service'
+
