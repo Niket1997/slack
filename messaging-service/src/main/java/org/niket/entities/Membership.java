@@ -3,6 +3,7 @@ package org.niket.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Where;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,6 +17,7 @@ import lombok.EqualsAndHashCode;
         // userId will be used. Here, for a certain userId & channelId, we want a single entry in the memberships
         // table hence adding a unique constraint over (userId, channelId)
 })
+@Where(clause = "deleted_at IS NULL")
 public class Membership extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
