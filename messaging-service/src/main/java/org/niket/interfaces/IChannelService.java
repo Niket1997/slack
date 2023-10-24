@@ -9,4 +9,6 @@ public interface IChannelService {
     Channel getChannel(Integer channelId);
 
     Channel updateChannel(Integer channelId, UpsertChannelRequest request);
+
+    void deleteChannel(Integer channelId);
 }

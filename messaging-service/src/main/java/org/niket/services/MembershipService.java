@@ -3,7 +3,9 @@ package org.niket.services;
 import org.jetbrains.annotations.NotNull;
 import org.niket.entities.Membership;
 import org.niket.exceptions.EntityNotFoundException;
+import org.niket.interfaces.IChannelService;
 import org.niket.interfaces.IMembershipService;
+import org.niket.interfaces.IUserService;
 import org.niket.records.membership.CreateMembershipRequest;
 import org.niket.records.membership.UpdateMembershipRequest;
 import org.niket.repositories.IMembershipRepository;
@@ -17,12 +19,22 @@ public class MembershipService implements IMembershipService {
 
     private final IMembershipRepository membershipRepository;
 
-    public MembershipService(IMembershipRepository membershipRepository) {
+    private final IUserService userService;
+    private final IChannelService channelService;
+
+    public MembershipService(IMembershipRepository membershipRepository, IUserService userService, IChannelService channelService) {
         this.membershipRepository = membershipRepository;
+        this.userService = userService;
+        this.channelService = channelService;
     }
 
     @Override
     public Membership createMembership(@NotNull CreateMembershipRequest request) {
+        // If the user doesn't exist, then following method will throw EntityNotFoundException
+        userService.getUser(request.userId());
+        // If the channel doesn't exist, then following method will throw EntityNotFoundException
+        channelService.getChannel(request.channelId());
+
         Membership membership = new Membership();
         membership.setUserId(request.userId());
         membership.setChannelId(request.channelId());
@@ -68,5 +80,16 @@ public class MembershipService implements IMembershipService {
     @Override
     public List<Membership> getUsersInChannel(Integer channelId) {
         return membershipRepository.findByChannelId(channelId);
+    }
+
+    @Override
+    public void deleteMembership(Integer membershipId) {
+        Optional<Membership> membershipOptional = membershipRepository.findById(membershipId);
+        if (membershipOptional.isEmpty())
+            throw new EntityNotFoundException("no membership found with id: " + membershipId);
+        Membership membership = membershipOptional.get();
+        membership.markUpdated();
+        membership.markDeleted();
+        membershipRepository.save(membership);
     }
 }

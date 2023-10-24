@@ -28,4 +28,9 @@ public class ChannelController {
     public Channel getChannel(@PathVariable Integer channelId) {
         return channelService.getChannel(channelId);
     }
+
+    @DeleteMapping("/{channelId}")
+    public void deleteMessage(@PathVariable Integer channelId) {
+        channelService.deleteChannel(channelId);
+    }
 }

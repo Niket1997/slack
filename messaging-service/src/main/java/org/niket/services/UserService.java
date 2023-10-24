@@ -45,4 +45,14 @@ public class UserService implements IUserService {
         user.markUpdated();
         return userRepository.save(user);
     }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) throw new EntityNotFoundException("no user found for given user id: " + userId);
+        User user = userOptional.get();
+        user.markUpdated();
+        user.markDeleted();
+        userRepository.save(user);
+    }
 }

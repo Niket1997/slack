@@ -47,4 +47,14 @@ public class ChannelService implements IChannelService {
         channel.markUpdated();
         return channelRepository.save(channel);
     }
+
+    @Override
+    public void deleteChannel(Integer channelId) {
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if (channelOptional.isEmpty()) throw new EntityNotFoundException("no channel found with id: " + channelId);
+        Channel channel = channelOptional.get();
+        channel.markUpdated();
+        channel.markDeleted();
+        channelRepository.save(channel);
+    }
 }
