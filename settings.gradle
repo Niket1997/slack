@@ -1,3 +1,4 @@
 rootProject.name = 'slack'
 include 'messaging-service'
+include 'edge-server'
 
