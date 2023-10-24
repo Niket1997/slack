@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.niket.base.BaseEntity;
 import org.niket.enums.ChannelType;
 
 @EqualsAndHashCode(callSuper = true)

@@ -3,7 +3,6 @@ package org.niket.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.niket.base.BaseEntity;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

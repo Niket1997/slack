@@ -1,4 +1,4 @@
-package org.niket.apierror;
+package org.niket.apierrors;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
