@@ -1,5 +1,6 @@
 package org.niket.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.niket.entities.Membership;
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IMembershipService;
@@ -21,7 +22,7 @@ public class MembershipService implements IMembershipService {
     }
 
     @Override
-    public Membership createMembership(CreateMembershipRequest request) {
+    public Membership createMembership(@NotNull CreateMembershipRequest request) {
         Membership membership = new Membership();
         membership.setUserId(request.userId());
         membership.setChannelId(request.channelId());

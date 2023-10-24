@@ -1,5 +1,6 @@
 package org.niket.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.niket.entities.User;
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IUserService;
@@ -18,7 +19,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createUser(UpsertUserRequest request) {
+    public User createUser(@NotNull UpsertUserRequest request) {
         User user = new User();
         user.setName(request.name());
         user.setEmailId(request.emailId());
