@@ -1,9 +1,6 @@
 package org.niket.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.niket.base.BaseEntity;
@@ -11,6 +8,7 @@ import org.niket.base.BaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "users")
+@Table(indexes = {@Index(name = "idx_email_id", columnList = "emailId", unique = true)})
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
