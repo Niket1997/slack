@@ -8,7 +8,7 @@ import org.niket.base.BaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "users")
-@Table(indexes = {@Index(name = "idx_email_id", columnList = "emailId", unique = true)})
+@Table(indexes = {@Index(name = "idx_users_email_id", columnList = "emailId", unique = true)}) // get user with email id
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

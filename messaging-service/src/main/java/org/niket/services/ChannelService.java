@@ -4,16 +4,16 @@ import org.niket.entities.Channel;
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IChannelService;
 import org.niket.records.channel.UpsertChannelRequest;
-import org.niket.repositories.ChannelRepository;
+import org.niket.repositories.IChannelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class ChannelService implements IChannelService {
-    private final ChannelRepository channelRepository;
+    private final IChannelRepository channelRepository;
 
-    public ChannelService(ChannelRepository channelRepository) {
+    public ChannelService(IChannelRepository channelRepository) {
         this.channelRepository = channelRepository;
     }
 
@@ -40,9 +40,9 @@ public class ChannelService implements IChannelService {
         if (channelOptional.isEmpty())
             throw new EntityNotFoundException("no channel found for given channel id: " + channelId);
         Channel channel = channelOptional.get();
-        channel.setName(request.name());
-        channel.setDescription(request.description());
-        channel.setChannelType(request.channelType());
+        if (request.name() != null) channel.setName(request.name());
+        if (request.description() != null) channel.setDescription(request.description());
+        if (request.channelType() != null) channel.setChannelType(request.channelType());
         channel.markUpdated();
         return channelRepository.save(channel);
     }
