@@ -9,4 +9,6 @@ public interface IUserService {
     User getUser(Integer userId);
 
     User updateUser(Integer userId, UpsertUserRequest request);
+
+    void deleteUser(Integer userId);
 }

@@ -2,9 +2,7 @@ package org.niket.controllers;
 
 import org.niket.entities.Membership;
 import org.niket.exceptions.InvalidRequestException;
-import org.niket.interfaces.IChannelService;
 import org.niket.interfaces.IMembershipService;
-import org.niket.interfaces.IUserService;
 import org.niket.records.membership.CreateMembershipRequest;
 import org.niket.records.membership.UpdateMembershipRequest;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,9 @@ import java.util.List;
 @RequestMapping("/v1/memberships")
 public class MembershipController {
     private final IMembershipService membershipService;
-    private final IUserService userService;
 
-    private final IChannelService channelService;
-
-    public MembershipController(IMembershipService membershipService, IUserService userService, IChannelService channelService) {
+    public MembershipController(IMembershipService membershipService) {
         this.membershipService = membershipService;
-        this.userService = userService;
-        this.channelService = channelService;
     }
 
     @PostMapping("")
@@ -30,11 +23,6 @@ public class MembershipController {
         if (request.userId() == null || request.channelId() == null) {
             throw new InvalidRequestException("userId and channelId shouldn't be null");
         }
-
-        // If the user doesn't exist, then following method will throw EntityNotFoundException
-        userService.getUser(request.userId());
-        // If the channel doesn't exist, then following method will throw EntityNotFoundException
-        channelService.getChannel(request.channelId());
 
         return membershipService.createMembership(request);
     }
@@ -62,5 +50,10 @@ public class MembershipController {
     @GetMapping("/users/{channelId}")
     public List<Membership> getUsersInChannel(@PathVariable Integer channelId) {
         return membershipService.getUsersInChannel(channelId);
+    }
+
+    @DeleteMapping("/{membershipId}")
+    public void deleteMembership(@PathVariable Integer membershipId) {
+        membershipService.deleteMembership(membershipId);
     }
 }

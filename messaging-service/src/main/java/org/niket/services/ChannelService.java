@@ -1,5 +1,6 @@
 package org.niket.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.niket.entities.Channel;
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IChannelService;
@@ -18,7 +19,7 @@ public class ChannelService implements IChannelService {
     }
 
     @Override
-    public Channel createChannel(UpsertChannelRequest request) {
+    public Channel createChannel(@NotNull UpsertChannelRequest request) {
         Channel channel = new Channel();
         channel.setName(request.name());
         channel.setDescription(request.description());
@@ -45,5 +46,15 @@ public class ChannelService implements IChannelService {
         if (request.channelType() != null) channel.setChannelType(request.channelType());
         channel.markUpdated();
         return channelRepository.save(channel);
+    }
+
+    @Override
+    public void deleteChannel(Integer channelId) {
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if (channelOptional.isEmpty()) throw new EntityNotFoundException("no channel found with id: " + channelId);
+        Channel channel = channelOptional.get();
+        channel.markUpdated();
+        channel.markDeleted();
+        channelRepository.save(channel);
     }
 }

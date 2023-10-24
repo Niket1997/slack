@@ -1,5 +1,6 @@
 package org.niket.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.niket.entities.User;
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IUserService;
@@ -18,7 +19,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createUser(UpsertUserRequest request) {
+    public User createUser(@NotNull UpsertUserRequest request) {
         User user = new User();
         user.setName(request.name());
         user.setEmailId(request.emailId());
@@ -43,5 +44,15 @@ public class UserService implements IUserService {
         if (request.bio() != null) user.setBio(request.bio());
         user.markUpdated();
         return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) throw new EntityNotFoundException("no user found for given user id: " + userId);
+        User user = userOptional.get();
+        user.markUpdated();
+        user.markDeleted();
+        userRepository.save(user);
     }
 }

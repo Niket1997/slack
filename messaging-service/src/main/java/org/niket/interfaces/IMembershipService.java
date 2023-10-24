@@ -18,4 +18,6 @@ public interface IMembershipService {
     List<Membership> getChannelsForUser(Integer userId);
 
     List<Membership> getUsersInChannel(Integer channelId);
+
+    void deleteMembership(Integer membershipId);
 }

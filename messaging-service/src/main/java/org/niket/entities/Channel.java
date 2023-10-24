@@ -6,12 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.niket.base.BaseEntity;
+import org.hibernate.annotations.Where;
 import org.niket.enums.ChannelType;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "channels")
+@Where(clause = "deleted_at IS NULL")
 public class Channel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

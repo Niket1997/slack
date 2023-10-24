@@ -1,4 +1,4 @@
-package org.niket.apierror;
+package org.niket.apierrors;
 
 import org.niket.exceptions.EntityNotFoundException;
 import org.niket.exceptions.InvalidRequestException;
