@@ -1,7 +1,7 @@
 package org.niket.services;
 
 import org.niket.entities.User;
-import org.niket.exceptions.UserNotFoundException;
+import org.niket.exceptions.EntityNotFoundException;
 import org.niket.interfaces.IUserService;
 import org.niket.records.user.UpsertUserRequest;
 import org.niket.repositories.UserRepository;
@@ -29,14 +29,14 @@ public class UserService implements IUserService {
     @Override
     public User getUser(Integer userId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isEmpty()) throw new UserNotFoundException("no user found for given user id: " + userId);
+        if (userOptional.isEmpty()) throw new EntityNotFoundException("no user found for given user id: " + userId);
         return userOptional.get();
     }
 
     @Override
     public User updateUser(Integer userId, UpsertUserRequest request) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isEmpty()) throw new UserNotFoundException("no user found for given user id: " + userId);
+        if (userOptional.isEmpty()) throw new EntityNotFoundException("no user found for given user id: " + userId);
         User user = userOptional.get();
         user.setName(request.name());
         user.setEmailId(request.emailId());
