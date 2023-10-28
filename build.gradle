@@ -19,8 +19,6 @@ test {
     useJUnitPlatform()
 }
 
-tasks.verifyGoogleJavaFormat.ignoreFailures = true
-
 googleJavaFormat {
     toolVersion = "1.1"
 }
