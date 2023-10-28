@@ -5,6 +5,10 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import lombok.extern.slf4j.Slf4j;
 import org.niket.exceptions.InvalidRequestException;
+import org.niket.redis.MessageEventListener;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,24 +18,17 @@ import java.util.Set;
 @Component
 @Slf4j
 public class SocketModule {
-    public SocketModule(SocketIOServer socketIOServer) {
+    private final RedisMessageListenerContainer redisMessageListenerContainer;
+    @Qualifier("customMessageListener")
+    private final MessageEventListener messageListener;
+
+    public SocketModule(SocketIOServer socketIOServer, RedisMessageListenerContainer redisMessageListenerContainer, MessageEventListener messageListener) {
+        this.redisMessageListenerContainer = redisMessageListenerContainer;
+        this.messageListener = messageListener;
         socketIOServer.addConnectListener(onConnected());
         socketIOServer.addDisconnectListener(onDisconnected());
     }
 
-//    private DataListener<Message> onMessageReceived() {
-//        return (senderClient, message, ackSender) -> {
-//            log.info(message.toString());
-//            String room = message.getChannelId().toString();
-//            Collection<SocketIOClient> clients = senderClient.getNamespace().getRoomOperations(room).getClients();
-//            for (SocketIOClient client : clients) {
-//                if (!client.getSessionId().equals(senderClient.getSessionId())) {
-//                    client.sendEvent("read_message",
-//                            message);
-//                }
-//            }
-//        };
-//    }
 
     private ConnectListener onConnected() {
         return client -> {
@@ -43,7 +40,10 @@ public class SocketModule {
             int userId = Integer.parseInt(params.get("userId").get(0));
             // get channels a user is part of
             Set<String> channels = Set.of("1", "2");
+            Set<ChannelTopic> channelTopics = Set.of(new ChannelTopic("1"), new ChannelTopic("2"));
+            client.set("userId", userId);
             client.joinRooms(channels);
+            redisMessageListenerContainer.addMessageListener(messageListener, channelTopics);
             log.info("## client connected.");
         };
     }
