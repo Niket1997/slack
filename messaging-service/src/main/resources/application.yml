@@ -1,0 +1,20 @@
+server:
+  port: 8089
+
+spring:
+  # Database Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3307/messaging
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Redis Configuration
+  data:
+    redis:
+      host: localhost
+      port: 6380
+      password: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
