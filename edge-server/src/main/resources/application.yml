@@ -19,6 +19,8 @@ spring:
       password: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
 
 # Messaging Service Configuration
-services:
+external:
   messaging:
-    base-url: 127.0.0.1
+    base-url: "http://localhost:8089"
+    getChannelsForUserRoute:
+      endpoint: "/v1/memberships/channels/{userId}"
