@@ -14,10 +14,11 @@ import org.niket.enums.ChannelType;
 @Entity(name = "channels")
 @Where(clause = "deleted_at IS NULL")
 public class Channel extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private String description;
-    private ChannelType channelType;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer id;
+
+  private String name;
+  private String description;
+  private ChannelType channelType;
 }

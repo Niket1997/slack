@@ -4,11 +4,11 @@ import org.niket.entities.User;
 import org.niket.records.user.UpsertUserRequest;
 
 public interface IUserService {
-    User createUser(UpsertUserRequest request);
+  User createUser(UpsertUserRequest request);
 
-    User getUser(Integer userId);
+  User getUser(Integer userId);
 
-    User updateUser(Integer userId, UpsertUserRequest request);
+  User updateUser(Integer userId, UpsertUserRequest request);
 
-    void deleteUser(Integer userId);
+  void deleteUser(Integer userId);
 }

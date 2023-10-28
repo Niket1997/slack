@@ -10,24 +10,26 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 @Configuration
 public class RedisSubscriberConfiguration {
-    private final MessageListener messageListener;
-    private final RedisConnectionFactory redisConnectionFactory;
+  private final MessageListener messageListener;
+  private final RedisConnectionFactory redisConnectionFactory;
 
-    public RedisSubscriberConfiguration(@Qualifier("customMessageListener") MessageListener messageListener, RedisConnectionFactory redisConnectionFactory) {
-        this.messageListener = messageListener;
-        this.redisConnectionFactory = redisConnectionFactory;
-    }
+  public RedisSubscriberConfiguration(
+      @Qualifier("customMessageListener") MessageListener messageListener,
+      RedisConnectionFactory redisConnectionFactory) {
+    this.messageListener = messageListener;
+    this.redisConnectionFactory = redisConnectionFactory;
+  }
 
-    @Bean
-    public MessageListenerAdapter messageListenerAdapter() {
-        return new MessageListenerAdapter(messageListener);
-    }
+  @Bean
+  public MessageListenerAdapter messageListenerAdapter() {
+    return new MessageListenerAdapter(messageListener);
+  }
 
-
-    @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer() {
-        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
-        redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
-        return redisMessageListenerContainer;
-    }
+  @Bean
+  public RedisMessageListenerContainer redisMessageListenerContainer() {
+    RedisMessageListenerContainer redisMessageListenerContainer =
+        new RedisMessageListenerContainer();
+    redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
+    return redisMessageListenerContainer;
+  }
 }

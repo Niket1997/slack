@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 public class EdgeServer {
-    public static void main(String[] args) {
-        SpringApplication.run(EdgeServer.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(EdgeServer.class, args);
+  }
 }

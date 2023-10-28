@@ -4,11 +4,11 @@ import org.niket.entities.Channel;
 import org.niket.records.channel.UpsertChannelRequest;
 
 public interface IChannelService {
-    Channel createChannel(UpsertChannelRequest request);
+  Channel createChannel(UpsertChannelRequest request);
 
-    Channel getChannel(Integer channelId);
+  Channel getChannel(Integer channelId);
 
-    Channel updateChannel(Integer channelId, UpsertChannelRequest request);
+  Channel updateChannel(Integer channelId, UpsertChannelRequest request);
 
-    void deleteChannel(Integer channelId);
+  void deleteChannel(Integer channelId);
 }

@@ -1,4 +1,3 @@
 package org.niket.apierrors;
 
-public abstract class ApiSubError {
-}
+public abstract class ApiSubError {}

@@ -1,18 +1,17 @@
 package org.niket.exceptions;
 
 public class EntityNotFoundException extends RuntimeException {
-    public EntityNotFoundException() {
-    }
+  public EntityNotFoundException() {}
 
-    public EntityNotFoundException(String message) {
-        super(message);
-    }
+  public EntityNotFoundException(String message) {
+    super(message);
+  }
 
-    public EntityNotFoundException(Throwable cause) {
-        super(cause);
-    }
+  public EntityNotFoundException(Throwable cause) {
+    super(cause);
+  }
 
-    public EntityNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public EntityNotFoundException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

@@ -8,29 +8,29 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
-    private final IUserService userService;
+  private final IUserService userService;
 
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
+  public UserController(IUserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("")
-    public User createUser(@RequestBody UpsertUserRequest request) {
-        return userService.createUser(request);
-    }
+  @PostMapping("")
+  public User createUser(@RequestBody UpsertUserRequest request) {
+    return userService.createUser(request);
+  }
 
-    @PutMapping("/{userId}")
-    public User updateUser(@PathVariable Integer userId, @RequestBody UpsertUserRequest request) {
-        return userService.updateUser(userId, request);
-    }
+  @PutMapping("/{userId}")
+  public User updateUser(@PathVariable Integer userId, @RequestBody UpsertUserRequest request) {
+    return userService.updateUser(userId, request);
+  }
 
-    @GetMapping("/{userId}")
-    public User getUser(@PathVariable Integer userId) {
-        return userService.getUser(userId);
-    }
+  @GetMapping("/{userId}")
+  public User getUser(@PathVariable Integer userId) {
+    return userService.getUser(userId);
+  }
 
-    @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable Integer userId) {
-        userService.deleteUser(userId);
-    }
+  @DeleteMapping("/{userId}")
+  public void deleteUser(@PathVariable Integer userId) {
+    userService.deleteUser(userId);
+  }
 }
